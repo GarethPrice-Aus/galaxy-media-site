@@ -39,7 +39,7 @@ tools = [
                 'label': 'Experimental design template',
             },
         ],
-        "button_link": "https://usegalaxy.org.au/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/maxquant/maxquant/",
+        "button_link": "$GALAXY_URL/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/maxquant/maxquant/",
     },
     {
         "title_html": '<code>FlashLFQ</code>',
@@ -50,7 +50,7 @@ tools = [
                 'label': 'MetaMorpheus, Morpheus, PeptideShaker PSM Report, MaxQuant',
             }
         ],
-        "button_link": "https://usegalaxy.org.au/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/flashlfq/flashlfq/",
+        "button_link": "$GALAXY_URL/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/flashlfq/flashlfq/",
     }
 ]
 

@@ -37,7 +37,7 @@ tools = [
                 'label': 'Protein evidence (optional)',
             },
         ],
-        "button_link": "https://genome.usegalaxy.org.au/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmaker%2Fmaker",
+        "button_link": "$GALAXY_URL/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmaker%2Fmaker",
     },
     {
         "title_html": '<code>Funannotate predict</code> - predicted gene annotations',
@@ -59,7 +59,7 @@ tools = [
                 'label': 'Protein evidence (optional)',
             },
         ],
-        "button_link": "https://genome.usegalaxy.org.au/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffunannotate_predict%2Ffunannotate_predict",
+        "button_link": "$GALAXY_URL/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffunannotate_predict%2Ffunannotate_predict",
     },
     {
         "title_html": '<code>RepeatMasker</code> - screen DNA sequences for interspersed repeats and low complexity regions',
@@ -77,7 +77,7 @@ tools = [
                 'label': 'Genome assembly',
             },
         ],
-        "button_link": "https://genome.usegalaxy.org.au/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Frepeat_masker%2Frepeatmasker_wrapper",
+        "button_link": "$GALAXY_URL/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Frepeat_masker%2Frepeatmasker_wrapper",
     },
     {
         "title_html": '<code>InterProScan</code> - Scans InterPro database and assigns functional annotations',
@@ -91,7 +91,7 @@ tools = [
                 'label': 'Genome assembly',
             },
         ],
-        "button_link": "https://genome.usegalaxy.org.au/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Finterproscan%2Finterproscan",
+        "button_link": "$GALAXY_URL/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Finterproscan%2Finterproscan",
     },
     {
         "title_html": '<code>Funannotate compare</code> - compare several annotations',
@@ -105,7 +105,7 @@ tools = [
                 'label': 'Genome assemblies to compare',
             },
         ],
-        "button_link": "https://genome.usegalaxy.org.au/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffunannotate_compare%2Ffunannotate_compare",
+        "button_link": "$GALAXY_URL/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffunannotate_compare%2Ffunannotate_compare",
     },
     {
         "title_html": '<code>JBrowse</code> - Genome browser to visualize annotations',
@@ -124,7 +124,7 @@ tools = [
                 'label': 'Mapped RNAseq data (optional)',
             },
         ],
-        "button_link": "https://genome.usegalaxy.org.au/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fjbrowse%2Fjbrowse",
+        "button_link": "$GALAXY_URL/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fjbrowse%2Fjbrowse",
     },
     {
         "title_html": '<code>Prokka</code> - Genome annotation, prokaryotes only',
@@ -135,7 +135,7 @@ tools = [
                 'label': 'Genome assembly',
             },
         ],
-        "button_link": "https://genome.usegalaxy.org.au/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fcrs4%2Fprokka%2Fprokka",
+        "button_link": "$GALAXY_URL/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fcrs4%2Fprokka%2Fprokka",
     },
 ]
 
@@ -168,7 +168,7 @@ workflows = [
                 'label': 'Proteins',
             },
         ],
-        "button_link": "https://genome.usegalaxy.org.au/u/anna/w/genome-annotation-with-maker",
+        "button_link": "$GALAXY_URL/u/anna/w/genome-annotation-with-maker",
         "button_tip": "Run in Galaxy AU",
     },
     {
@@ -204,7 +204,7 @@ workflows = [
                 'label': 'Alternative annotation',
             },
         ],
-        "button_link": "https://genome.usegalaxy.org.au/u/anna/w/annotation-funannotate",
+        "button_link": "$GALAXY_URL/u/anna/w/annotation-funannotate",
         "button_tip": "Run in Galaxy AU",
     },
 ]

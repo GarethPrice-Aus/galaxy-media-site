@@ -36,7 +36,7 @@ tools = [
                 'label': 'Input FASTA file(s), each containing a database',
             }
         ],
-        "button_link": "https://proteomics.usegalaxy.org.au/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/openms_decoydatabase/DecoyDatabase/",
+        "button_link": "$GALAXY_URL/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/openms_decoydatabase/DecoyDatabase/",
     },
     {
         "title_html": '<code>MaxQuant</code>',
@@ -51,7 +51,7 @@ tools = [
                 'label': 'Experimental design template',
             },
         ],
-        "button_link": "https://usegalaxy.org.au/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/maxquant/maxquant/",
+        "button_link": "$GALAXY_URL/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/maxquant/maxquant/",
     },
     {
         "title_html": '<code>Morpheus</code>',
@@ -66,7 +66,7 @@ tools = [
                 'label': 'MS Protein Search Database: UniProt Xml or Fasta',
             },
         ],
-        "button_link": "https://proteomics.usegalaxy.org.au/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/morpheus/morpheus/",
+        "button_link": "$GALAXY_URL/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/morpheus/morpheus/",
     },
     {
         "title_html": '<code>MSFraggerAdapter</code>',
@@ -81,7 +81,7 @@ tools = [
                 'label': 'Protein FASTA database file path',
             },
         ],
-        "button_link": "https://proteomics.usegalaxy.org.au/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/openms_msfraggeradapter/MSFraggerAdapter/",
+        "button_link": "$GALAXY_URL/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/openms_msfraggeradapter/MSFraggerAdapter/",
     }
 ]
 

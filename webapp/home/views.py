@@ -98,8 +98,7 @@ def landing(request, subdomain):
         })
 
     response = render(request, template, context)
-    # TODO: galaxy tool URL substitution after templating:
-    response.content.replace(
+    response.content = response.content.replace(
         b'$GALAXY_URL',
         context['galaxy_base_url'].encode('utf-8'))
     return response

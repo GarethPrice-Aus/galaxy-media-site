@@ -40,7 +40,7 @@ tools = [
                 'label': 'Experimental Design Matrix (MaxQuant output)',
             }
         ],
-        "button_link": "https://usegalaxy.org.au/root?tool_id=interactive_tool_lfqanalyst",
+        "button_link": "$GALAXY_URL/root?tool_id=interactive_tool_lfqanalyst",
         "view_link": "Shah AD, Goode RJA, Huang C, Powell DR, Schittenhelm RB. LFQ-Analyst: An easy-to-use interactive web-platform to analyze and visualize proteomics data preprocessed with MaxQuant. https://doi.org/10.1021/acs.jproteome.9b00496",
     },
     {
@@ -52,7 +52,7 @@ tools = [
                 'label': 'Either the 10-column MSstats format or the outputs of spectral processing tools such as MaxQuant, OpenSWATH.',
             }
         ],
-        "button_link": "https://usegalaxy.org.au/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/msstats/msstats/",
+        "button_link": "$GALAXY_URL/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/msstats/msstats/",
     }
 ]
 

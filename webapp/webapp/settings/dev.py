@@ -7,8 +7,8 @@ from .log import config
 from utils.parse import parse_list
 
 
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY') or "secretkey"
 if os.environ.get('HOSTNAME'):
     HOSTNAME = os.environ.get('HOSTNAME')

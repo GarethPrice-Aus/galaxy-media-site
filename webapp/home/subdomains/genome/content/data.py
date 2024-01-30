@@ -30,7 +30,7 @@ tools = [
     {
         "title_html": "Import data to Galaxy",
         "description_html": "<p>Standard upload of data to Galaxy, from your computer or from the web.</p>",
-        "button_link": 'https://genome.usegalaxy.org.au/tool_runner?tool_id=upload1',
+        "button_link": '$GALAXY_URL/tool_runner?tool_id=upload1',
     },
     {
         "title_html": '<code>FastQC</code> - sequence quality reports',
@@ -40,7 +40,7 @@ tools = [
             {'datatypes': ['bam']},
             {'datatypes': ['sam']},
         ],
-        "button_link": "https://genome.usegalaxy.org.au/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fdevteam%2Ffastqc%2Ffastqc",
+        "button_link": "$GALAXY_URL/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fdevteam%2Ffastqc%2Ffastqc",
     },
     {
         "title_html": '<code>FastP</code> - sequence quality reports, trimming & filtering',
@@ -48,7 +48,7 @@ tools = [
         "inputs": [
             {'datatypes': ['fastq']},
         ],
-        "button_link": "https://genome.usegalaxy.org.au/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffastp%2Ffastp",
+        "button_link": "$GALAXY_URL/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffastp%2Ffastp",
     },
     {
         "title_html": '<code>NanoPlot</code> - visualize Oxford Nanopore data',
@@ -58,7 +58,7 @@ tools = [
             {'datatypes': ['fasta']},
             {'datatypes': ['vcf_bgzip']},
         ],
-        "button_link": "https://genome.usegalaxy.org.au/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fnanoplot%2Fnanoplot",
+        "button_link": "$GALAXY_URL/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fnanoplot%2Fnanoplot",
     },
     {
         "title_html": '<code>GenomeScope</code> - estimate genome size',
@@ -69,7 +69,7 @@ tools = [
                 "label": "Output from <code>Meryl</code> or <code>Jellyfish histo</code>",
             },
         ],
-        "button_link": "https://genome.usegalaxy.org.au/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fgenomescope%2Fgenomescope",
+        "button_link": "$GALAXY_URL/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fgenomescope%2Fgenomescope",
     },
     {
         "title_html": '<code>Meryl</code> - count kmers',
@@ -78,7 +78,7 @@ tools = [
             {'datatypes': ['fastq']},
             {'datatypes': ['fasta']},
         ],
-        "button_link": "https://genome.usegalaxy.org.au/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmeryl%2Fmeryl",
+        "button_link": "$GALAXY_URL/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmeryl%2Fmeryl",
     },
 ]
 
@@ -96,7 +96,7 @@ workflows = [
               <code>fastqc</code>
               <code>multiqc</code>
             </p>""",
-        "button_link": "https://genome.usegalaxy.org.au/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=222",
+        "button_link": "$GALAXY_URL/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=222",
         "button_tip": "Import to Galaxy AU",
         "view_link": "https://workflowhub.eu/workflows/222",
         "view_tip": "View in WorkflowHub",
@@ -112,7 +112,7 @@ workflows = [
               <code>meryl</code>
               <code>genomescope</code>
             </p>""",
-        "button_link": "https://genome.usegalaxy.org.au/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=223",
+        "button_link": "$GALAXY_URL/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=223",
         "button_tip": "Import to Galaxy AU",
         "view_link": "https://workflowhub.eu/workflows/223",
         "view_tip": "View in WorkflowHub",
@@ -127,7 +127,7 @@ workflows = [
               Tools:
               <code>fastp</code>
             </p>""",
-        "button_link": "https://genome.usegalaxy.org.au/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=224",
+        "button_link": "$GALAXY_URL/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=224",
         "button_tip": "Import to Galaxy AU",
         "view_link": "https://workflowhub.eu/workflows/224",
         "view_tip": "View in WorkflowHub",

@@ -30,7 +30,7 @@ tools = [
     {
         "title_html": "Import data to Galaxy",
         "description_html": "<p>Standard upload of data to Galaxy, from your computer or from the web.</p>",
-        "button_link": 'https://genome.usegalaxy.org.au/tool_runner?tool_id=upload1',
+        "button_link": '$GALAXY_URL/tool_runner?tool_id=upload1',
     }
 ]
 
