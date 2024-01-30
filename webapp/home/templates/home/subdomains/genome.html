@@ -1,4 +1,4 @@
-{% extends 'home/header.html' %}
+{% extends extend_template %}
 
 {% comment %}
   This template renders the Genome Lab subdomain landing page.
@@ -28,7 +28,7 @@
 
   <section  class="header-subdomain australia d-flex align-items-center h-100">
     <img id="header-logo" src="{% static 'home/img/subdomains/'|add:name|add:'/logo.png' %}" alt="Galaxy Australia Logo">
-    GENOME LAB
+    {{ lab_name|default:"Genome Lab"|upper }}
   </section>
 
   <section class="my-5" id="tagline">
@@ -36,7 +36,7 @@
     {% include 'home/snippets/cover-image.html' %}
 
     <p>
-      Welcome to the Galaxy Australia Genome Lab. Get quick access to tools, workflows and tutorials for genome assembly and annotation.
+      Welcome to the Galaxy {{ site_name }} {{ lab_name|default:"Genome Lab" }}. Get quick access to tools, workflows and tutorials for genome assembly and annotation.
       <br>
       <a
         href="#"
@@ -51,8 +51,9 @@
     {% include 'home/subdomains/components/section.html' with section=section %}
   {% endfor %}
 
+  {% if not export %}
   <section class="my-5">
-    <h4 class="mb-3">What's happening in Australian genomics research?</h4>
+    <h4 class="mb-3">What's happening in {{ nationality }} genomics research?</h4>
     <button
       class="ga-btn"
       data-bs-toggle="modal"
@@ -71,6 +72,7 @@
       Give feedback
     </button>
   </section>
+  {% endif %}
 </main>
 
 {% endblock %}

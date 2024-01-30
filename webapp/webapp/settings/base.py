@@ -29,7 +29,8 @@ AUTH_USER_MODEL = 'home.User'
 
 # Site paths and URLs
 HOSTNAME = '127.0.0.1:5000'
-GALAXY_SITE_NAME = 'Media'  # Rendered as "Galaxy <GALAXY_SITE_NAME>"
+GALAXY_SITE_NAME = 'Australia'
+GALAXY_SITE_SUFFIX = 'Media'    # Rendered as "Galaxy <SITE_NAME> <SUFFIX>"
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'webapp/static'
 MEDIA_URL = '/media/'
@@ -141,8 +142,14 @@ MOCK_GALAXY_INTERACTIONS = (
 if MOCK_GALAXY_INTERACTIONS:
     print("MOCK_GALAXY_INTERACTIONS is set: mocking galaxy interactions")
 
-# Galaxy API auth
+# For linking to Galaxy server
 GALAXY_URL = os.environ.get('GALAXY_URL')
+if GALAXY_URL:
+    GALAXY_URL = GALAXY_URL.strip('/')
+else:
+    print('Warning: GALAXY_URL not set. Links to Galaxy server will be'
+          ' broken.')
+# API auth
 GALAXY_API_KEY = os.environ.get('GALAXY_API_KEY')
 
 # Internationalization

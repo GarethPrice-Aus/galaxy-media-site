@@ -3,10 +3,14 @@
 import os
 import logging
 import pprint
+import requests
+# import yaml
 from django.conf import settings
-from django.template import TemplateDoesNotExist, loader
-from django.shortcuts import render, get_object_or_404
+from django.core.exceptions import SuspiciousOperation
+from django.contrib import messages
 from django.http import Http404
+from django.shortcuts import render, get_object_or_404
+from django.template import TemplateDoesNotExist, loader
 from django.template.loader import get_template
 
 from utils import aaf
@@ -68,13 +72,94 @@ def landing(request, subdomain):
             f"No content files found for subdomain '{subdomain}'"
             " at 'webapp/home/subdomains/{subdomain}/'")
 
-    return render(request, template, {
+    context = {
+        'extend_template': 'home/header.html',
+        'export': False,
         'name': subdomain,
-        'notices': Notice.get_notices_by_type(request, subsite=subdomain),
-        'cover_image': CoverImage.get_random(request, subsite=subdomain),
-        'sections': sections,
-        'form': SupportRequestForm(),
-    })
+        'site_name': settings.GALAXY_SITE_NAME,
+        'nationality': 'Australian',
+        'galaxy_base_url': settings.GALAXY_URL,
+    }
+    if request.GET.get('export'):
+        context = ExportLabContext(request)
+        context.validate()
+        context.update({
+            'sections': sections,
+            'name': subdomain,
+            'title': f'Galaxy - {subdomain.title()} Lab',
+        })
+
+    else:
+        context.update({
+            'sections': sections,
+            'notices': Notice.get_notices_by_type(request, subsite=subdomain),
+            'cover_image': CoverImage.get_random(request, subsite=subdomain),
+            'form': SupportRequestForm(),
+        })
+
+    response = render(request, template, context)
+    # TODO: galaxy tool URL substitution after templating:
+    response.content.replace(
+        b'$GALAXY_URL',
+        context['galaxy_base_url'].encode('utf-8'))
+    return response
+
+
+class ExportLabContext(dict):
+    """Build and validate render context for Lab landing page."""
+
+    REQUIRED_PARAMS = {
+        'site_name',
+        'nationality',
+        'galaxy_base_url',
+    }
+
+    def __init__(self, request):
+        """Init context from dict."""
+        super().__init__(self)
+        self.request = request
+        params = request.GET
+        self.update({
+            'export': True,
+            'extend_template': 'home/header-export.html',
+        })
+        yaml_url = params.get('yaml_context_url')
+        if yaml_url:
+            self._fetch_yaml_context(yaml_url)
+        else:
+            self.update({
+                k: v for k, v in
+                {
+                    'site_name': params.get('site_name'),
+                    'lab_name': params.get('lab_name'),
+                    'nationality': params.get('nationality', ''),
+                    'galaxy_base_url': params.get('galaxy_base_url'),
+                }.items()
+                if v
+            })
+
+    def _clean(self):
+        """Format params for rendering."""
+        self['nationality'].capitalize()
+        self['galaxy_base_url'].strip('/')
+
+    def validate(self):
+        """Validate against required params."""
+        for k in self.REQUIRED_PARAMS:
+            if not self.get(k):
+                msg = f"GET parameter '{k}' is required for webpage export."
+                # ! TODO: messages are not working
+                messages.add_message(self.request, messages.ERROR, msg)
+                raise SuspiciousOperation(msg)
+        self._clean()
+
+    def _fetch_yaml_context(self, url):
+        """Fetch params from remote YAML file."""
+        if url:
+            # TODO
+            yaml_str = requests.get(url).content()
+            # params = yaml.loads(yaml_str, loader=yaml.Loader())
+            # self.update(params)
 
 
 def notice(request, notice_id):
