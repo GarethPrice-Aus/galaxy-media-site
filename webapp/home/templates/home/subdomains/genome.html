@@ -31,6 +31,9 @@
     {{ lab_name|default:"Genome Lab"|upper }}
   </section>
 
+  {% if snippets.intro_html %}
+  {{ snippets.intro_html|safe }}
+  {% else %}
   <section class="my-5" id="tagline">
     {% include 'home/snippets/static-notices.html' %}
     {% include 'home/snippets/cover-image.html' %}
@@ -46,6 +49,7 @@
       </a>
     </p>
   </section>
+  {% endif %}
 
   {% for section in sections %}
     {% include 'home/subdomains/components/section.html' with section=section %}

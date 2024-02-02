@@ -11,12 +11,11 @@ class TestCase(DjangoTestCase):
 
     def setUp(self):
         logging.getLogger('django').setLevel(logging.ERROR)
-
-    def tearDown(self) -> None:
         settings_module = os.environ.get('DJANGO_SETTINGS_MODULE')
-        if settings_module == 'webapp.settings.test':
-            shutil.rmtree(settings.MEDIA_ROOT, ignore_errors=True)
-        else:
+        if settings_module != 'webapp.settings.test':
             raise RuntimeError(
                 'Do not run tests without using webapp.settings.test!'
                 f' (Using {settings_module})')
+
+    def tearDown(self) -> None:
+        shutil.rmtree(settings.MEDIA_ROOT, ignore_errors=True)

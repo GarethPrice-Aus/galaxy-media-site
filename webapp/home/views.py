@@ -3,22 +3,19 @@
 import os
 import logging
 import pprint
-import requests
-# import yaml
 from django.conf import settings
-from django.core.exceptions import SuspiciousOperation
-from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.template import TemplateDoesNotExist, loader
 from django.template.loader import get_template
 
+from events.models import Event
+from news.models import News
 from utils import aaf
 from utils import unsubscribe
 from utils.exceptions import ResourceAccessError
 from utils.institution import get_institution_list
-from events.models import Event
-from news.models import News
+from .export import ExportSubsiteContext
 from .models import CoverImage, Notice
 from .forms import (
     ResourceRequestForm,
@@ -81,7 +78,7 @@ def landing(request, subdomain):
         'galaxy_base_url': settings.GALAXY_URL,
     }
     if request.GET.get('export'):
-        context = ExportLabContext(request)
+        context = ExportSubsiteContext(request)
         context.validate()
         context.update({
             'sections': sections,
@@ -102,63 +99,6 @@ def landing(request, subdomain):
         b'$GALAXY_URL',
         context['galaxy_base_url'].encode('utf-8'))
     return response
-
-
-class ExportLabContext(dict):
-    """Build and validate render context for Lab landing page."""
-
-    REQUIRED_PARAMS = {
-        'site_name',
-        'nationality',
-        'galaxy_base_url',
-    }
-
-    def __init__(self, request):
-        """Init context from dict."""
-        super().__init__(self)
-        self.request = request
-        params = request.GET
-        self.update({
-            'export': True,
-            'extend_template': 'home/header-export.html',
-        })
-        yaml_url = params.get('yaml_context_url')
-        if yaml_url:
-            self._fetch_yaml_context(yaml_url)
-        else:
-            self.update({
-                k: v for k, v in
-                {
-                    'site_name': params.get('site_name'),
-                    'lab_name': params.get('lab_name'),
-                    'nationality': params.get('nationality', ''),
-                    'galaxy_base_url': params.get('galaxy_base_url'),
-                }.items()
-                if v
-            })
-
-    def _clean(self):
-        """Format params for rendering."""
-        self['nationality'].capitalize()
-        self['galaxy_base_url'].strip('/')
-
-    def validate(self):
-        """Validate against required params."""
-        for k in self.REQUIRED_PARAMS:
-            if not self.get(k):
-                msg = f"GET parameter '{k}' is required for webpage export."
-                # ! TODO: messages are not working
-                messages.add_message(self.request, messages.ERROR, msg)
-                raise SuspiciousOperation(msg)
-        self._clean()
-
-    def _fetch_yaml_context(self, url):
-        """Fetch params from remote YAML file."""
-        if url:
-            # TODO
-            yaml_str = requests.get(url).content()
-            # params = yaml.loads(yaml_str, loader=yaml.Loader())
-            # self.update(params)
 
 
 def notice(request, notice_id):

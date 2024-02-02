@@ -1,0 +1,12 @@
+# Spec for an exported subsite landing page
+# Test with: http://127.0.0.1:8000/landing/genome?export=true&yaml_context_url=http://127.0.0.1:8000/media/subsite.yml
+
+site_name: "Antarctica"
+lab_name: "Archaeology"
+nationality: "Gazorpian"
+galaxy_base_url: "https://gazorpian-galaxy.org"
+
+# Custom content in HTML snippets relative to this file
+intro_html: "subsite_intro.html"
+# header_image: "my-logo.png"
+# footer_html: "footer.html"

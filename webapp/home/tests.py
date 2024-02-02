@@ -1,16 +1,66 @@
+import requests
 from django.test import Client
 from django.core.files import File
 from django.core import mail
+from pathlib import Path
+from unittest import mock
 
-from webapp.test import TestCase
+from .models import Notice, Subsite
+from .test.data import (
+    TEST_NOTICES,
+    TEST_SUBSITES,
+    MOCK_REQUESTS,
+    MOCK_BASE_URL,
+)
 from events.models import Event, Supporter, Tag
 from events.test.data import TEST_EVENTS, TEST_SUPPORTERS, TEST_TAGS
-from utils.data.fgenesh import genematrix_tree
 from news.models import News
 from news.test.data import TEST_NEWS
 from utils import institution
-from .models import Notice, Subsite
-from .test.data import TEST_NOTICES, TEST_SUBSITES
+from utils.data.fgenesh import genematrix_tree
+from webapp.test import TestCase
+
+TEST_DATA_DIR = Path(__file__).parent / 'test/data'
+TEST_SUBSITE_NAME = 'TEST'
+TEST_SUBSITE_LAB_NAME = 'TEST LAB'
+TEST_SUBSITE_NATIONALITY = 'TEST_NATIONALITY'
+TEST_SUBSITE_GALAXY_BASE_URL = 'testgalaxy.org'
+TEST_SUBSITE_URL = (
+    '/landing/genome?'
+    'export=true'
+    f'&site_name={TEST_SUBSITE_NAME}'
+    f'&nationality={TEST_SUBSITE_NATIONALITY}'
+    f'&galaxy_base_url={TEST_SUBSITE_GALAXY_BASE_URL}'
+    f'&lab_name={TEST_SUBSITE_LAB_NAME}'
+)
+TEST_SUBSITE_YAML_URL = (
+    '/landing/genome?export=true&yaml_context_url'
+    f'={MOCK_BASE_URL}/subsite.yml')
+
+
+class MockResponse:
+    def __init__(self, data=None, html=None, status_code=200):
+        self.json_data = data
+        self.html_data = html
+        self.status_code = status_code
+        self.content = self.html_data.encode('utf-8')
+
+    def raise_for_status(self):
+        pass
+
+    def json(self):
+        return self.json_data
+
+
+def mocked_requests_get(*args, **kwargs):
+    """Mock requests by returning MockResponse from file."""
+    url = args[0]
+    if url in MOCK_REQUESTS:
+        content = MOCK_REQUESTS[url]
+        if isinstance(content, dict):
+            return MockResponse(data=content)
+        return MockResponse(html=content)
+    return MockResponse(None, 404)
 
 
 class HomeTestCase(TestCase):
@@ -110,7 +160,7 @@ class HomeTestCase(TestCase):
         # A tool update link should be shown
         self.assertContains(
             response,
-            '''window.location = '/news/''',
+            "window.location = '/news/",
             count=1,
         )
         # Should display the date, not the title
@@ -151,8 +201,34 @@ class HomeTestCase(TestCase):
             TEST_NOTICES[0]['data']['title'],
         )
 
+    def test_exported_subsite_landing_webpage(self):
+        response = self.client.get(TEST_SUBSITE_URL)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            TEST_SUBSITE_NAME)
+        self.assertContains(
+            response,
+            TEST_SUBSITE_LAB_NAME)
+
+    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    def test_exported_subsite_landing_webpage_from_yaml(self, mock_get):
+        response = self.client.get(TEST_SUBSITE_YAML_URL)
+        self.assertContains(
+            # Custom tool URLs from YAML
+            response,
+            'https://gazorpian-galaxy.org')
+        self.assertContains(
+            # Custom HTML snippet
+            response,
+            'Welcome to the Galaxy Anarctica Archaeology Lab!')
+
     def test_aaf_webpage(self):
-        response = self.client.get('/aaf')
+        try:
+            response = self.client.get('/aaf')
+        except requests.exceptions.ConnectionError:
+            print('\nNo internet connection - cannot test AAF list.')
+            return
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(
