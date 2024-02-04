@@ -1,10 +1,13 @@
-"""Exported landing pages to be requested by external Galaxy servers."""
+"""Exported landing pages to be requested by external Galaxy servers.
+
+Example URL:
+http://127.0.0.1:8000/landing/genome?export=true&site_name=Australia&lab_name=Genome%20Lab&nationality=Antarctican&galaxy_base_url=http://mygalaxy.org
+"""
 
 import logging
 import requests
 import yaml
 from django.core.exceptions import SuspiciousOperation
-from django.contrib import messages
 
 logger = logging.getLogger('django')
 
@@ -64,8 +67,6 @@ class ExportSubsiteContext(dict):
         for k in self.REQUIRED_PARAMS:
             if not self.get(k):
                 msg = f"GET parameter '{k}' is required for webpage export."
-                # ! TODO: messages are not rendering in 400 template
-                messages.add_message(self.request, messages.ERROR, msg)
                 logger.warning('Error validating exported subsite request:'
                                + msg)
                 raise SuspiciousOperation(msg)

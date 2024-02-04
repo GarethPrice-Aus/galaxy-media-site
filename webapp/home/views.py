@@ -55,6 +55,7 @@ def landing(request, subdomain):
     A support request form is passed to the template which can be submitted
     with AJAX and processed by an API handler.
     """
+
     template = f'home/subdomains/{subdomain}.html'
     try:
         get_template(template)
@@ -250,3 +251,10 @@ def unsubscribe_user(request):
         'message': ("You will no longer receive marketing emails from Galaxy"
                     " Australia."),
     })
+
+
+def custom_400(request, exception, template_name="400.html"):
+    """Custom view to show error messages."""
+    return render(request, template_name, {
+        'exc': exception,
+    }, status=400)
